@@ -1,0 +1,32 @@
+// Place all the styles related to the nukes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.nuke_bar
+{
+  background: red;
+  width: 25%;
+  height: 50px;
+  position: fixed;
+  top: 44.5%;
+  left: 37.5%;
+  border: 1px solid white;
+}
+p{
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  font-size: 3em;
+
+
+}
+
+.reveal:visited {
+    color: white;
+}
+.reveal
+{
+  color: white;
+  text-decoration: none;
+}

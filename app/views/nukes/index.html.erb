@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+
+<style>
+body{
+  background-image: url('assets/nuke.png');
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain;
+   background-attachment: fixed;
+}
+</style>
+
+<div class="nuke_bar">
+  <p><%= link_to 'Reveal Codes', nuke_path(@nuke), class: 'reveal' %></p>
+</div>
+
+<%= time_one = Time.now.strftime('%I'+'%M').to_i - Nuke.first.updated_at.strftime('%I'+'%M').to_i %>
+<%=  Time.now.strftime('%I'+'%M') %>
+
+<%= time = Time.now.strftime('%I'+'%M').to_i - Nuke.first.updated_at.strftime('%I'+'%M').to_i   %>
+<%= time %>
