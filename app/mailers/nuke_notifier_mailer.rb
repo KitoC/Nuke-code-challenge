@@ -1,0 +1,2 @@
+class NukeNotifierMailer < ApplicationMailer
+end

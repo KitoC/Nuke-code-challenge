@@ -1,6 +1,6 @@
 class NukesController < ApplicationController
   before_action :set_nuke, only: [:show, :edit, :update, :destroy, :index]
-
+  before_action :check_role, only: [:show]
   # GET /nukes
   # GET /nukes.json
   def index
@@ -8,12 +8,24 @@ class NukesController < ApplicationController
 
   # GET /nukes/1
   # GET /nukes/1.json
-  def show
-     time = Time.now.strftime('%I'+'%M').to_i - Nuke.first.updated_at.strftime('%I'+'%M').to_i
 
-   if time >= 1 or time <= -1
+  def show
+    time = Time.now.strftime('%I'+'%M').to_i - @nuke.update_codes.to_i
+
+   if time >= 5 or time <= -1
      @nuke.nuke_update
    end
+
+   if time <= 5 or time >= -5
+     codes_viewed
+   end
+
+   if current_user == User.first
+     @nuke.nuke_president
+   elsif current_user == User.find(2)
+     @nuke.nuke_secretary
+   end
+
 
     @nuke_first = ' '
     @nuke_last = ' '
@@ -86,6 +98,30 @@ class NukesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def nuke_params
       params.require(:nuke).permit(:nuke_code)
+    end
+
+    def set_time
+      time = Time.now.strftime('%I'+'%M').to_i - Nuke.first.updated_at.strftime('%I'+'%M').to_i
+      return time
+    end
+
+    def last_signin
+      president_last = Time.now.strftime('%I'+'%M').to_i - User.first.last_sign_in_at.strftime('%I'+'%M').to_i
+
+      secretary_last = Time.now.strftime('%I'+'%M').to_i - User.find(2).last_sign_in_at.strftime('%I'+'%M').to_i
+    end
+
+    def check_role
+      UserNotifierMailer.notify_president.deliver if current_user.russian?
+    end
+
+    def codes_viewed
+      pres_time = Time.now.strftime('%I'+'%M').to_i - @nuke.president.to_i
+      sec_time = Time.now.strftime('%I'+'%M').to_i - @nuke.president.to_i
+
+      if (pres_time <= 5 or pres_time >= 5) && (sec_time <= 5 or sec_time >= 5)
+      UserNotifierMailer.notify_russians('President and the defence secretary').deliver
+      end
     end
 
 

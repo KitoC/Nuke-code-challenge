@@ -5,6 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   rolify
 
+
+
+
+
+
   def president?
     self.has_role?(:president)
   end

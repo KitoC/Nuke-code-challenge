@@ -18,8 +18,10 @@ body{
   <p><%= link_to 'Reveal Codes', nuke_path(@nuke), class: 'reveal' %></p>
 </div>
 
-<%= time_one = Time.now.strftime('%I'+'%M').to_i - Nuke.first.updated_at.strftime('%I'+'%M').to_i %>
-<%=  Time.now.strftime('%I'+'%M') %>
+Time <%=  Time.now.strftime('%d'+'%I'+'%M').to_i %>
 
-<%= time = Time.now.strftime('%I'+'%M').to_i - Nuke.first.updated_at.strftime('%I'+'%M').to_i   %>
-<%= time %>
+Nuke <%= time1 = Time.now.strftime('%I'+'%M').to_i - @nuke.update_codes.to_i %>
+
+Pres <%= time2 = Time.now.strftime('%I'+'%M').to_i - @nuke.president.to_i %>
+
+Secr <%= @nuke.secretary.to_i %>
